@@ -15,6 +15,7 @@ export class TableComponent implements OnInit {
 
   products: any = [];
   pageNumber: number = 1;
+  searchedKeyword: string;
   displayedColumns: string[] = ['API', 'Description', 'Auth', 'HTTPS'];
 
 
@@ -31,11 +32,21 @@ export class TableComponent implements OnInit {
     })
   }
 
+  // search(value: string): void {
+  //   this.products = this.products.filter(val => val.API.toLowerCase().includes(value));
+  // }
+
   search(ele) {
-    let searchText = '';
-    searchText = '' + ele.value.fieldName
-    this.products = this.filterService.transform(this.products, searchText, 'name')
-    this.products = this.products.sort();
+    if (ele > 0) {
+      let searchText = '';
+      searchText = '' + ele;
+      this.products = this.filterService.transform(this.products, searchText, 'API')
+      this.products = this.products.sort();
+    }
+    else {
+      return this.products;
+    }
+
 
   }
 }

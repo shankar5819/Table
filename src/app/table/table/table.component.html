@@ -1,5 +1,10 @@
 <div>
-  <table class="table">
+  <div class="form-group col-md-4" style="margin-top:20px;">
+    <input type="text" class="form-control" (input)="search($event.target.value)"  placeholder="Enter Keyword for filter result" 
+     [(ngModel)]="searchedKeyword">
+  </div>
+
+  <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">API</th>
@@ -10,7 +15,9 @@
     </thead>
     <tbody>
       <mat-spinner class="spinner" *ngIf="products.length == 0"></mat-spinner>
-      <tr *ngFor="let product of products | paginate: { itemsPerPage: 100, currentPage: pageNumber }">
+   
+
+      <tr *ngFor="let product of products | filterText:searchedKeyword:'API' | paginate: { itemsPerPage: 100, currentPage: pageNumber }">
         <td>{{product.API}}</td>
         <td>{{product.Description}}</td>
         <td>{{product.Auth}}</td>
