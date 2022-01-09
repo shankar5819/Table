@@ -14,14 +14,11 @@ import { MatSort } from '@angular/material/sort';
 export class TableComponent implements OnInit {
 
   products: any = [];
-  p: number = 1;
+  pageNumber: number = 1;
   displayedColumns: string[] = ['API', 'Description', 'Auth', 'HTTPS'];
-  config: any;
-  collection = { count: 60, data: [] };
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  constructor(public tableService: TableService, public filterService: FilterTextPipe) {}
+
+  constructor(public tableService: TableService, public filterService: FilterTextPipe) { }
 
 
   ngOnInit(): void {
@@ -30,11 +27,9 @@ export class TableComponent implements OnInit {
 
   getAll() {
     this.tableService.getAll().subscribe((data) => {
-      console.log(data.entries);
       this.products = data.entries;
     })
   }
-
 
   search(ele) {
     let searchText = '';
